@@ -1,3 +1,6 @@
+// ignore_for_file: sized_box_for_whitespace
+
+import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
 main() => runApp(const ExpensesApp());
@@ -14,6 +17,21 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Novo Tênis de Corrida',
+      value: 310.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de luz',
+      value: 110.76,
+      date: DateTime.now(),
+    ),
+  ];
+
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -22,8 +40,21 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
       ),
-      body: const Center(
-        child: Text('Versão Inicial'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            child: const Card(
+              elevation: 5,
+              color: Colors.blue,
+              child: Text('Gráfico'),
+            ),
+          ),
+          const Card(
+            child: Text('Lista de Transações'),
+          )
+        ],
       ),
     );
   }
