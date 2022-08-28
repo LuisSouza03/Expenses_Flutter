@@ -2,6 +2,7 @@
 
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 main() => runApp(const ExpensesApp());
 
@@ -10,7 +11,7 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: MyHomePage(),
     );
   }
@@ -32,7 +33,7 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +52,54 @@ class MyHomePage extends StatelessWidget {
               child: Text('Gráfico'),
             ),
           ),
-          const Card(
-            child: Text('Lista de Transações'),
+          Column(
+            children: _transactions.map((tr) {
+              return Card(
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.purple,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'R\$ ${tr.value.toStringAsFixed(2).replaceAll('.', ',')}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr.title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          DateFormat('d/MM/y').format(tr.date),
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
           )
         ],
       ),
